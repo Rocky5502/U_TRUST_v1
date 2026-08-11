@@ -9,7 +9,7 @@ from u_trust.backends.hf_local import HFLoadConfig, HFLocalChoiceBackend
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", choices=["qwen3-8b", "llama31-8b"], required=True)
+    ap.add_argument("--model", choices=["qwen3-8b", "mistral7b"], required=True)
     args = ap.parse_args()
 
     cfg = yaml.safe_load(Path("configs/models.yaml").read_text(encoding="utf-8"))["models"][args.model]

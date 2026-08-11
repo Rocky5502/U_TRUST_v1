@@ -2,7 +2,7 @@ experiment:
   name: u_trust_aaai27
   seed: 17
   seeds: [17, 29, 43]
-  models: [qwen3-8b, llama31-8b]
+  models: [qwen3-8b, mistral7b]
   benchmarks: [agentdojo, injecagent]
   topologies: [chain4, star4]
   defenses: [none, tagging, channel_gate, u_trust]

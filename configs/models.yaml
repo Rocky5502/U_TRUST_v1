@@ -15,9 +15,9 @@ models:
       Main Qwen condition. Transformers >=4.51.0 is required. Use non-thinking mode
       for the primary campaign so the observable scoring path and budgets remain comparable.
 
-  llama31-8b:
-    model_id: meta-llama/Llama-3.1-8B-Instruct
-    family: llama3.1
+  mistral7b:
+    model_id: mistralai/Mistral-7B-Instruct-v0.3
+    family: mistral
     revision: null   # MUST be frozen to a commit SHA before the final test campaign
     dtype: bfloat16
     load_in_4bit: true
@@ -26,6 +26,8 @@ models:
     device_map: auto
     trust_remote_code: false
     max_context: 32768
+    enable_thinking: false
     notes: >-
-      Gated Hugging Face model. Accept the Meta Llama 3.1 license and authenticate
-      with a Hugging Face token before downloading. Use the same 32k experiment cap.
+      Second open-weight backbone. Apache-2.0 model family with a 32k position limit.
+      Use the same 32k experiment cap, 4-bit NF4 configuration, and frozen decoding
+      budget as the Qwen condition. Record the exact Hugging Face snapshot SHA before test.

@@ -8,7 +8,7 @@ from huggingface_hub import snapshot_download
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="Download/freeze one U-TRUST model at a time.")
-    ap.add_argument("--model", choices=["qwen3-8b", "llama31-8b"], required=True)
+    ap.add_argument("--model", choices=["qwen3-8b", "mistral7b"], required=True)
     ap.add_argument("--cache-dir", default=None)
     ap.add_argument("--revision", default=None, help="Optional exact HF commit SHA to freeze.")
     args = ap.parse_args()

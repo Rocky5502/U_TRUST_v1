@@ -5,7 +5,7 @@
   "injecagent_commit": "f19c9f2c79a41046eb13c03c51a24c567a8ffa07",
   "models": {
     "qwen3-8b": {"id": "Qwen/Qwen3-8B", "revision": null, "quantization": "4-bit NF4 TBD freeze"},
-    "llama31-8b": {"id": "meta-llama/Llama-3.1-8B-Instruct", "revision": null, "quantization": "4-bit NF4 TBD freeze"}
+    "mistral7b": {"id": "mistralai/Mistral-7B-Instruct-v0.3", "revision": null, "quantization": "4-bit NF4 TBD freeze"}
   },
   "prompts_sha256": {},
   "split_manifest": null,

@@ -1,0 +1,31 @@
+models:
+  qwen3-8b:
+    model_id: Qwen/Qwen3-8B
+    family: qwen3
+    revision: null   # MUST be frozen to a commit SHA before the final test campaign
+    dtype: bfloat16
+    load_in_4bit: true
+    quantization: nf4
+    double_quant: true
+    device_map: auto
+    trust_remote_code: false
+    max_context: 32768
+    enable_thinking: false
+    notes: >-
+      Main Qwen condition. Transformers >=4.51.0 is required. Use non-thinking mode
+      for the primary campaign so the observable scoring path and budgets remain comparable.
+
+  llama31-8b:
+    model_id: meta-llama/Llama-3.1-8B-Instruct
+    family: llama3.1
+    revision: null   # MUST be frozen to a commit SHA before the final test campaign
+    dtype: bfloat16
+    load_in_4bit: true
+    quantization: nf4
+    double_quant: true
+    device_map: auto
+    trust_remote_code: false
+    max_context: 32768
+    notes: >-
+      Gated Hugging Face model. Accept the Meta Llama 3.1 license and authenticate
+      with a Hugging Face token before downloading. Use the same 32k experiment cap.

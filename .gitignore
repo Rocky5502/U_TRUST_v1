@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Secrets
+.env
+*.key
+
+# Models / caches
+.cache/
+hf_cache/
+models/
+
+# Third-party benchmark checkouts
+external/agentdojo/
+external/InjecAgent/
+
+# Experimental outputs
+results/raw/*
+!results/raw/.gitkeep
+results/processed/*
+!results/processed/.gitkeep
+runs/
+logs/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+external/*
+!external/README.md
+*.pyc

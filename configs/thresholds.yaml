@@ -1,0 +1,7 @@
+u_trust:
+  eta: 0.55
+  tau_pass: 0.30
+  tau_quarantine: 0.70
+  calibrator_path: results/processed/calibrator.json
+
+# DEVELOPMENT defaults only. Freeze before test evaluation.

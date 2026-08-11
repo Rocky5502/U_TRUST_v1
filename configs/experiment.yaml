@@ -1,0 +1,33 @@
+experiment:
+  name: u_trust_aaai27
+  seed: 17
+  seeds: [17, 29, 43]
+  models: [qwen3-8b, llama31-8b]
+  benchmarks: [agentdojo, injecagent]
+  topologies: [chain4, star4]
+  defenses: [none, tagging, channel_gate, u_trust]
+  attacks:
+    - direct_override
+    - indirect_injection
+    - role_confusion
+    - self_propagating
+
+splits:
+  development_fraction: 0.30
+  test_fraction: 0.70
+  split_unit: benchmark_task_id
+  stratify_by: [benchmark, attack_family]
+
+routing:
+  clean_false_block_max: 0.05
+  select_thresholds_on: development
+  lock_test_after_freeze: true
+
+logging:
+  raw_dir: results/raw
+  processed_dir: results/processed
+  save_prompt_hashes: true
+  save_model_revision: true
+  save_quantization_config: true
+  save_latency: true
+  save_token_counts: true

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "u-trust"
+version = "0.1.0"
+description = "Experiment scaffold for uncertainty-guided trust routing in multi-agent LLM security"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyyaml>=6.0",
+  "pydantic>=2.7",
+  "scikit-learn>=1.5",
+  "scipy>=1.13",
+  "tqdm>=4.66",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+local = [
+  "transformers>=4.51.0",
+  "accelerate>=1.2",
+  "bitsandbytes>=0.45",
+  "huggingface-hub>=0.28",
+]
+dev = [
+  "pytest>=8.2",
+  "ruff>=0.6",
+]
+agentdojo = [
+  "agentdojo[transformers]>=0.1.35",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "scripts", "tests"]

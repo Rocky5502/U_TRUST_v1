@@ -11,6 +11,7 @@ EXTERNAL = ROOT / "external"
 OUT = ROOT / "results" / "pilot" / "benchmark_inventory.json"
 
 AGENTDOJO_SHA = "089ed468cf3ed0322acc66b0211f26d9d90dbf60"
+AGENTDOJO_BENCHMARK_VERSION = "v1.2.2"
 INJECAGENT_SHA = "f19c9f2c79a41046eb13c03c51a24c567a8ffa07"
 
 
@@ -48,10 +49,17 @@ def inspect_agentdojo() -> dict[str, Any]:
     if sha != AGENTDOJO_SHA:
         raise RuntimeError(f"AgentDojo SHA mismatch: {sha} != {AGENTDOJO_SHA}")
 
+    # Prefer the editable install, but keeping the pinned checkout's src directory
+    # first on sys.path makes the inspected code unambiguously match AGENTDOJO_SHA.
     src = repo / "src"
     sys.path.insert(0, str(src))
     try:
-        from agentdojo.default_suites.v1.workspace import workspace_task_suite
+        # IMPORTANT: use AgentDojo's supported suite loader. Importing
+        # default_suites.v1.workspace directly can trigger a circular import in
+        # version-registration modules at this pinned revision.
+        from agentdojo.task_suite.load_suites import get_suite
+
+        workspace_task_suite = get_suite(AGENTDOJO_BENCHMARK_VERSION, "workspace")
     except ModuleNotFoundError as exc:
         missing = exc.name or "dependency"
         raise RuntimeError(
@@ -65,6 +73,7 @@ def inspect_agentdojo() -> dict[str, Any]:
     vectors = workspace_task_suite.get_injection_vector_defaults()
     return {
         "sha": sha,
+        "benchmark_version": AGENTDOJO_BENCHMARK_VERSION,
         "suite": "workspace",
         "user_task_count": len(user_ids),
         "injection_task_count": len(injection_ids),

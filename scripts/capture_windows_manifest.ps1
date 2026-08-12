@@ -14,7 +14,10 @@ if (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {
     $rows = nvidia-smi --query-gpu=index,name,memory.total,driver_version,pci.bus_id --format=csv,noheader,nounits
     foreach ($row in $rows) {
         $p = $row -split ',\s*'
-        $gpus += [ordered]@{
+        if ($p.Count -lt 5) {
+            throw "Unexpected nvidia-smi row: $row"
+        }
+        $gpus += [pscustomobject][ordered]@{
             index = [int]$p[0]
             name = $p[1]
             memory_total_mib = [int]$p[2]
@@ -23,7 +26,13 @@ if (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {
         }
     }
 }
-$totalGpuMiB = ($gpus | Measure-Object -Property memory_total_mib -Sum).Sum
+
+# Sum explicitly for compatibility with Windows PowerShell's handling of
+# ordered dictionaries / PSCustomObjects returned from nvidia-smi parsing.
+$totalGpuMiB = 0
+foreach ($gpu in $gpus) {
+    $totalGpuMiB += [int64]$gpu.memory_total_mib
+}
 
 $nvcc = $null
 if (Get-Command nvcc -ErrorAction SilentlyContinue) {
